@@ -26,7 +26,7 @@ async function register(req, res) {
   // Check if password is at least 8 characters long
   if (password.length < 8) {
     return res
-      .status(StatusCodes.BAD_REQUEST) // Using StatusCodes
+      .status(StatusCodes.BAD_REQUEST) // Using StatusCodes  BAD_Request means 4000
       .json({ Msg: "Password should be at least 8 characters long." });
   }
 
@@ -54,7 +54,7 @@ async function register(req, res) {
     );
 
     return res
-      .status(StatusCodes.CREATED) // Using StatusCodes
+      .status(StatusCodes.CREATED) // Using StatusCodes 201
       .json({ Msg: "User created successfully." });
   } catch (error) {
     console.log(error);

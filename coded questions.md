@@ -1,6 +1,4 @@
-Here are additional **code-specific questions** that can be asked during the defense presentation. These questions focus on the implementation details, coding practices, and specific challenges faced during development. These questions are designed to test the students' understanding of the codebase and their ability to explain their implementation.
 
----
 
 ### **Code-Specific Questions**
 
