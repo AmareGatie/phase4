@@ -66,7 +66,7 @@ async function register(req, res) {
 
 async function login(req, res) {
   const { usernameOrEmail, password } = req.body;
-  // console.log(email, password);
+  // console.log(usernameOrEmail, password);
   // Check if email and password are provided
   if (!usernameOrEmail || !password) {
     return res.status(StatusCodes.BAD_REQUEST).json({
@@ -80,7 +80,7 @@ async function login(req, res) {
       "SELECT username, userid, password FROM users WHERE email = ? OR username = ?",
       [usernameOrEmail, usernameOrEmail]
     );
-
+    // console.log(user);
     // Check if user exists
     if (user.length === 0) {
       return res.status(StatusCodes.NOT_FOUND).json({
@@ -100,7 +100,7 @@ async function login(req, res) {
     const username = user[0].username;
     const userid = user[0].userid;
     const secret = process.env.JWT_SECRET;
-    // console.log(username, userid);
+    //  console.log(username, userid);
     const token = jwt.sign({ username, userid }, secret, {
       expiresIn: "1d", // Token expires in 1 day
     });

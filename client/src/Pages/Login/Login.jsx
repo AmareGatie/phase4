@@ -33,7 +33,7 @@ function Login({ onSwitch }) {
         usernameOrEmail: formData.usernameOrEmail,
         password: formData.password,
       });
-      // console.log(response.data)
+      console.log(response.data);
       localStorage.setItem("EV-Forum-token", response.data.token); // Store the token in local storage
       window.location.href = "/"; // This will navigate to the / page and refresh the application
       if (response.status === 200) {

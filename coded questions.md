@@ -1,5 +1,3 @@
-
-
 ### **Code-Specific Questions**
 
 #### **Backend (Node.js) Questions**
@@ -37,7 +35,7 @@
 
      - **Explanation:** We used `bcrypt` to hash passwords with a salt round of 10 for security.
 
-3. **Q: Show the code for the authentication middleware. How does it verify JWT tokens?**
+3. **Q: Show the code for the authentication middleware. How does it verify JWT tokens?** How does JWT authentication work in your application?
 
    - **A:** Example code:
 
@@ -313,35 +311,6 @@
       ```
       - **Explanation:** We used the `cors` middleware to allow requests from the frontend.
 
-12. **Q: How did you handle file uploads (if implemented)? Show the code.**
-
-    - **A:** Example code using `multer`:
-
-      ```javascript
-      const multer = require("multer");
-      const upload = multer({ dest: "uploads/" });
-
-      app.post("/api/upload", upload.single("file"), (req, res) => {
-        res.status(200).json({ filePath: req.file.path });
-      });
-      ```
-
-      - **Explanation:** We used `multer` to handle file uploads and save them to the `uploads` directory.
-
-13. **Q: How did you implement logging in the backend? Show the code.**
-    - **A:** Example code using `morgan`:
-      ```javascript
-      const morgan = require("morgan");
-      app.use(morgan("combined"));
-      ```
-      - **Explanation:** We used `morgan` to log HTTP requests for debugging and monitoring.
-
----
-
-Here are **additional code-specific questions** that delve deeper into the implementation details, coding practices, and advanced concepts. These questions are designed to test the students' ability to explain their code, troubleshoot issues, and demonstrate their understanding of best practices.
-
----
-
 ### **Advanced Backend (Node.js) Questions**
 
 1. **Q: How did you handle environment variables in your Node.js application? Show the code for accessing them.**
@@ -370,77 +339,6 @@ Here are **additional code-specific questions** that delve deeper into the imple
      });
      ```
      - **Explanation:** We used `mysql2` with connection pooling to improve performance by reusing database connections.
-
-3. **Q: How did you implement transaction handling in the database? Show the code.**
-
-   - **A:** Example code:
-
-     ```javascript
-     const connection = await pool.getConnection();
-     await connection.beginTransaction();
-
-     try {
-       await connection.query("INSERT INTO userTable SET ?", {
-         username: "test",
-         email: "test@example.com",
-       });
-       await connection.query("INSERT INTO questionTable SET ?", {
-         user_id: 1,
-         title: "Test Question",
-       });
-       await connection.commit();
-     } catch (error) {
-       await connection.rollback();
-       throw error;
-     } finally {
-       connection.release();
-     }
-     ```
-
-     - **Explanation:** We used transactions to ensure atomicity when performing multiple database operations.
-
-4. **Q: How did you handle rate limiting in your API? Show the code.**
-
-   - **A:** Example code using `express-rate-limit`:
-     ```javascript
-     const rateLimit = require("express-rate-limit");
-     const limiter = rateLimit({
-       windowMs: 15 * 60 * 1000, // 15 minutes
-       max: 100, // Limit each IP to 100 requests per windowMs
-     });
-     app.use(limiter);
-     ```
-     - **Explanation:** We used `express-rate-limit` to prevent abuse of the API by limiting the number of requests from a single IP address.
-
-5. **Q: How did you implement input validation in the backend? Show the code.**
-
-   - **A:** Example code using `express-validator`:
-
-     ```javascript
-     const { body, validationResult } = require("express-validator");
-
-     app.post(
-       "/api/register",
-       [
-         body("username").notEmpty().withMessage("Username is required"),
-         body("email").isEmail().withMessage("Invalid email"),
-         body("password")
-           .isLength({ min: 6 })
-           .withMessage("Password must be at least 6 characters"),
-       ],
-       (req, res) => {
-         const errors = validationResult(req);
-         if (!errors.isEmpty()) {
-           return res.status(400).json({ errors: errors.array() });
-         }
-         // Proceed with registration
-       }
-     );
-     ```
-
-     - **Explanation:** We used `express-validator` to validate user input and return meaningful error messages.
-
----
 
 ### **Advanced Frontend (React) Questions**
 
@@ -518,101 +416,9 @@ Here are **additional code-specific questions** that delve deeper into the imple
 
      - **Explanation:** We used `React.lazy` and `Suspense` to load components only when needed, improving performance.
 
-9. **Q: How did you handle form submissions with file uploads in React? Show the code.**
-
-   - **A:** Example code:
-
-     ```javascript
-     const handleSubmit = async (e) => {
-       e.preventDefault();
-       const formData = new FormData();
-       formData.append("file", e.target.file.files[0]);
-
-       const response = await fetch("/api/upload", {
-         method: "POST",
-         body: formData,
-       });
-       const data = await response.json();
-       console.log(data);
-     };
-     ```
-
-     - **Explanation:** We used the `FormData` API to handle file uploads in React.
-
-10. **Q: How did you implement dark mode in your React app? Show the code.**
-
-    - **A:** Example code:
-
-      ```javascript
-      const [darkMode, setDarkMode] = useState(false);
-
-      useEffect(() => {
-        document.body.className = darkMode ? "dark-mode" : "light-mode";
-      }, [darkMode]);
-
-      return (
-        <button onClick={() => setDarkMode(!darkMode)}>Toggle Dark Mode</button>
-      );
-      ```
-
-      - **Explanation:** We used state to toggle between dark and light modes and applied corresponding CSS classes.
-
----
-
-### **Testing and Debugging Questions**
-
-11. **Q: How did you write unit tests for your backend APIs? Show an example.**
-
-    - **A:** Example code using `Jest` and `Supertest`:
-
-      ```javascript
-      const request = require("supertest");
-      const app = require("../app");
-
-      describe("GET /api/question", () => {
-        it("should return all questions", async () => {
-          const res = await request(app).get("/api/question");
-          expect(res.statusCode).toEqual(200);
-          expect(res.body).toHaveLength(10); // Assuming 10 questions are returned
-        });
-      });
-      ```
-
-      - **Explanation:** We used `Jest` and `Supertest` to test API endpoints.
-
-12. **Q: How did you debug performance issues in your React app?**
-
-    - **A:** Example approach:
-      - Used React DevTools to identify unnecessary re-renders.
-      - Implemented `React.memo` to memoize components.
-      - Used `useCallback` and `useMemo` to optimize performance.
-      - Example code:
-        ```javascript
-        const memoizedComponent = React.memo(MyComponent);
-        ```
-
-13. **Q: How did you test your React components? Show an example.**
-
-    - **A:** Example code using `React Testing Library`:
-
-      ```javascript
-      import { render, screen } from "@testing-library/react";
-      import Login from "./Login";
-
-      test("renders login form", () => {
-        render(<Login />);
-        const emailInput = screen.getByLabelText("Email");
-        expect(emailInput).toBeInTheDocument();
-      });
-      ```
-
-      - **Explanation:** We used `React Testing Library` to test component rendering and behavior.
-
----
-
 ### **Deployment and DevOps Questions**
 
-14. **Q: How did you deploy your Node.js backend? Show the deployment script.**
+1.  **Q: How did you deploy your Node.js backend? Show the deployment script.**
 
     - **A:** Example deployment script using `PM2`:
 
@@ -632,7 +438,7 @@ Here are **additional code-specific questions** that delve deeper into the imple
 
       - **Explanation:** We used `PM2` to manage the Node.js process and ensure it runs continuously.
 
-15. **Q: How did you set up CI/CD for your project? Show the configuration.**
+2.  **Q: How did you set up CI/CD for your project? Show the configuration.**
     - **A:** Example `.github/workflows/ci.yml` for GitHub Actions:
       ```yaml
       name: CI/CD Pipeline
@@ -652,72 +458,3 @@ Here are **additional code-specific questions** that delve deeper into the imple
       - **Explanation:** We used GitHub Actions to automate testing and deployment.
 
 ---
-
-### **Advanced Questions**
-
-16. **Q: How did you implement real-time notifications in your app? Show the code.**
-
-    - **A:** Example code using `Socket.IO`:
-
-      ```javascript
-      // Server-side
-      const io = require("socket.io")(server);
-      io.on("connection", (socket) => {
-        socket.on("newAnswer", (data) => {
-          io.emit("notification", data);
-        });
-      });
-
-      // Client-side
-      const socket = io("http://localhost:3000");
-      socket.on("notification", (data) => {
-        console.log("New answer:", data);
-      });
-      ```
-
-      - **Explanation:** We used `Socket.IO` to enable real-time communication between the server and clients.
-
-17. **Q: How did you handle localization (i18n) in your React app? Show the code.**
-
-    - **A:** Example code using `i18next`:
-
-      ```javascript
-      import i18n from "i18next";
-      import { initReactI18next } from "react-i18next";
-
-      i18n.use(initReactI18next).init({
-        resources: {
-          en: { translation: { welcome: "Welcome" } },
-          fr: { translation: { welcome: "Bienvenue" } },
-        },
-        lng: "en",
-        fallbackLng: "en",
-      });
-
-      const App = () => {
-        const { t } = useTranslation();
-        return <h1>{t("welcome")}</h1>;
-      };
-      ```
-
-      - **Explanation:** We used `i18next` to support multiple languages in the app.
-
-18. **Q: How did you optimize your React app for production? Show the code.**
-    - **A:** Example steps:
-      - Minified and bundled the app using `webpack`.
-      - Used `React.memo` and `useMemo` to optimize rendering.
-      - Example `webpack.config.js`:
-        ```javascript
-        const TerserPlugin = require("terser-webpack-plugin");
-        module.exports = {
-          mode: "production",
-          optimization: {
-            minimize: true,
-            minimizer: [new TerserPlugin()],
-          },
-        };
-        ```
-
----
-
-These additional questions will help students demonstrate their technical depth and problem-solving skills. They should be prepared to explain their code, discuss best practices, and troubleshoot potential issues.

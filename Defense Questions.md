@@ -1,4 +1,4 @@
-### **General Project Questions**\*\*****\*\*****\*\*****\*\*****\*\*****\*\*****\*\*****
+### **General Project Questions**\*\*\***\*\*\*\*\***\*\*\***\*\*\*\*\***\*\*\***\*\*\*\*\***\*\*\*\*\*\*
 
 1. **Q: What is the purpose of the Evangadi Forum project?**
 
@@ -17,7 +17,7 @@
 
 ---
 
-### **Backend-Specific Questions******\*\*\*\*********\*\*********\*\*\*\*********
+### **Backend-Specific Questions\*\*\*\***\*\*\*\***\*\*\*\***\*\***\*\*\*\***\*\*\*\***\*\*\*\***
 
 4. **Q: How did you design the database schema for the Q&A platform?**
 
@@ -59,9 +59,15 @@
     - **A:** We used controlled components in React to manage form inputs and implemented validation logic to check for required fields, valid email formats, and password strength. Error messages were displayed dynamically.
 
 13. **Q: How did you implement the logout functionality?**
+
     - **A:** We cleared the JWT token stored in the browser's local storage or context and redirected the user to the login page.
 
----
+14. **Q: How did you ensure database performance in your application?**
+
+- **A:** We indexed frequently queried fields (e.g., user_id, question_id) and normalized the database schema to reduce redundancy.
+
+15. **Q**: Why did you use foreign keys in your database schema?
+    - **A:** Foreign keys ensure referential integrity by linking related tables (e.g., questionTable to userTable and answerTable to questionTable).
 
 ### **Advanced Questions**
 
