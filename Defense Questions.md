@@ -32,10 +32,16 @@
    - **A:** We implemented authentication using JWT. When a user logs in, the server generates a token containing the user's ID and role. This token is sent to the client and included in the headers of subsequent requests to access protected endpoints.
 
 6. **Q: How did you handle errors in the backend APIs?**
+7. How did you handle error responses in your API endpoints?
 
    - **A:** We used middleware to catch and handle errors. For example, invalid requests return a `400 Bad Request`, unauthorized access returns a `401 Unauthorized`, and server errors return a `500 Internal Server Error`.
+   - 400 Bad Request: Returned when required fields are missing or invalid.
 
-7. **Q: How did you implement the API endpoint to get all questions?**
+   - 401 Unauthorized: Returned for invalid or expired tokens.
+   - 404 Not Found: Returned when a resource (e.g., a question or answer) is not found.
+   - 500 Internal Server Error: Returned for unexpected server errors.
+
+8. **Q: How did you implement the API endpoint to get all questions?**
    - **A:** We created a GET endpoint `/api/question` that queries the `questionTable` and returns a JSON response containing all questions and their metadata.
 
 ---
@@ -68,6 +74,11 @@
 
 15. **Q**: Why did you use foreign keys in your database schema?
     - **A:** Foreign keys ensure referential integrity by linking related tables (e.g., questionTable to userTable and answerTable to questionTable).
+16. How did you handle database relationships between users, questions, and answers?
+
+- We established relationships using foreign keys in the database schema. For example:
+- The questionTable has a user_id foreign key referencing the userTable to track which user posted the question.
+- The answerTable has both user_id and question_id foreign keys to link answers to both the user who posted them and the question they belong to
 
 ### **Advanced Questions**
 

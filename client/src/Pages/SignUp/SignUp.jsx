@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 
 import classes from "./signUp.module.css";
 import { Link } from "react-router-dom";
@@ -74,7 +74,7 @@ function Signup({ onSwitch }) {
         password: formData.password,
       });
       setSuccess("success");
-    
+
       if (response.status === 201) {
         setError(null); // Clear any previous errors
 
@@ -96,10 +96,7 @@ function Signup({ onSwitch }) {
           // Check the response status after awaiting the promise
           if (loginResponse.status === 200) {
             // Store the JWT token (use localStorage, sessionStorage, or cookies as appropriate)
-            localStorage.setItem(
-              "EV-Forum-token-G3-APR2024",
-              loginResponse.data.token
-            ); // Store the token in local storage
+            localStorage.setItem("EV-Forum-token", loginResponse.data.token); // Store the token in local storage
 
             // Redirect to home page
             window.location.href = "/";
@@ -113,7 +110,7 @@ function Signup({ onSwitch }) {
           setError("An error occurred during login. Please try again.");
         }
       } else {
-        setError(response.data.Msg); 
+        setError(response.data.Msg);
         await Swal.fire({
           title: "Error",
           text: error || "Error submitting the form. Please try again.",
@@ -139,7 +136,6 @@ function Signup({ onSwitch }) {
     }
   };
 
- 
   return (
     <div className={classes.formcontainer}>
       <h2>Join the network</h2>

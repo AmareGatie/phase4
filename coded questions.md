@@ -35,7 +35,7 @@
 
      - **Explanation:** We used `bcrypt` to hash passwords with a salt round of 10 for security.
 
-3. **Q: Show the code for the authentication middleware. How does it verify JWT tokens?** How does JWT authentication work in your application?
+3. **Q: How did you implement the authentication middleware? Show us the code. How does it verify JWT tokens?** How does JWT authentication work in your application?
 
    - **A:** Example code:
 
@@ -54,7 +54,7 @@
      }
      ```
 
-     - **Explanation:** The middleware checks for a valid JWT token in the request headers and verifies it using the secret key.
+     - **Explanation:** The middleware checks for a valid JWT in the Authorization header. If the token is valid, it decodes the token and attaches the user information to the req object. If the token is missing or invalid, it returns a 401 Unauthorized error.
 
 4. **Q: How did you handle errors in the Login API? Show the code.**
 
@@ -213,7 +213,6 @@
      ```javascript
      const Home = () => {
        const [questions, setQuestions] = useState([]);
-
        useEffect(() => {
          const fetchQuestions = async () => {
            const response = await fetch("/api/question");
