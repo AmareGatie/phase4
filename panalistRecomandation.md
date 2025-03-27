@@ -1,7 +1,3 @@
-Here’s a structured set of **recommendations for panelists to provide to students** after their project defense, based on the questions and answers above. These recommendations aim to reinforce strengths, suggest improvements, and guide future growth:
-
----
-
 ### **1. General Feedback Template**
 
 **Panelist Opening Statement**:  

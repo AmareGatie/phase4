@@ -1,5 +1,3 @@
-Here are 30 comprehensive technical questions with detailed answers and expanded panelist feedback, excluding testing-specific questions:
-
 ### Database Design (8 Questions)
 
 1. **Q:** Explain your database schema design with a focus on how you optimized for read vs. write operations.
